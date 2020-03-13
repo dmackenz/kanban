@@ -1,0 +1,27 @@
+{
+   "name": "kanban",
+   "version": "1.0.0",
+   "description": "",
+   "main": "index.js",
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "ts-node src/index.ts",
+      "dev": "nodemon -w src --ext ts --exec ts-node src/index.ts"
+   },
+   "keywords": [],
+   "author": "",
+   "license": "ISC",
+   "dependencies": {
+      "apollo-server": "^2.11.0",
+      "reflect-metadata": "^0.1.10",
+      "sqlite3": "^4.0.3",
+      "type-graphql": "^0.17.6",
+      "typeorm": "0.2.24"
+   },
+   "devDependencies": {
+      "@types/node": "^8.0.29",
+      "nodemon": "^2.0.2",
+      "ts-node": "^3.3.0",
+      "typescript": "^3.3.3333"
+   }
+}
