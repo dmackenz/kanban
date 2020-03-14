@@ -1,26 +1,23 @@
-import { InputType, Field } from "type-graphql"
-import { CreateSwimlaneInput } from "./SwimlaneInput"
+import { InputType, Field } from "type-graphql";
+import { CreateSwimlaneInput } from "./SwimlaneInput";
 
 @InputType()
 export class CreateBoardInput {
-	@Field()
-	title: string
+  @Field()
+  title: string;
 }
 
 @InputType()
 export class UpdateBoardInput {
-	@Field()
-	id: string
+  @Field()
+  boardId: string;
 
-	@Field()
-	title: string
+  @Field()
+  title: string;
 }
 
-// @InputType()
-// export class AddSwimlaneInput {
-// 	@Field()
-// 	id: string
-
-// 	@Field(type => CreateSwimlaneInput)
-// 	swimlane: CreateSwimlaneInput
-// }
+@InputType()
+export class DeleteBoardInput {
+  @Field()
+  boardId: string;
+}
