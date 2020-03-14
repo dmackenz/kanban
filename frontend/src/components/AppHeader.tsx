@@ -11,7 +11,7 @@ export default function AppHeader() {
   return (
     <div>
       <Header style={style.header} as="h2">
-        <Icon name="dashboard" />
+        <Icon name="compass outline" />
         <Header.Content>Kanban</Header.Content>
       </Header>
     </div>

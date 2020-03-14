@@ -1,21 +1,21 @@
 import React, { Component } from "react";
 import { Menu, Button } from "semantic-ui-react";
+import { IBoard } from "../types";
 
 export interface Props {
-  boards: {
-    title: string;
-    id: string;
-    active?: boolean;
-  }[];
+  boards: IBoard[];
   onSelect: (id: string) => void;
-  onCreateClicked: () => void;
+  onCreateKanbanClicked: () => void;
+  onCreateSwimlaneClicked: () => void;
 }
 
 export default function KanbanMenu({
   boards,
   onSelect,
-  onCreateClicked
+  onCreateKanbanClicked,
+  onCreateSwimlaneClicked
 }: Props) {
+  console.log(boards, "from kanban menu");
   return (
     <div>
       <Menu pointing>
@@ -25,13 +25,19 @@ export default function KanbanMenu({
             active={board.active === true}
             onClick={() => onSelect(board.id)}
           >
-            {board.title}
+            {board.title} {board.active}
           </Menu.Item>
         ))}
 
         <Menu.Menu position="right">
           <Menu.Item>
-            <Button onClick={onCreateClicked}>Create Kanban</Button>
+            <Button onClick={onCreateSwimlaneClicked}>Create Swimlane</Button>
+          </Menu.Item>
+        </Menu.Menu>
+
+        <Menu.Menu position="right">
+          <Menu.Item>
+            <Button onClick={onCreateKanbanClicked}>Create Kanban</Button>
           </Menu.Item>
         </Menu.Menu>
       </Menu>
