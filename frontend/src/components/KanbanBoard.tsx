@@ -1,6 +1,5 @@
-import React, { Component, ReactNode } from "react";
-import { Card, Grid, Icon, Header, Button } from "semantic-ui-react";
-import KanbanSwimlane from "./KanbanSwimlane";
+import React, { ReactNode } from "react";
+import { Card, Icon, Header, Button } from "semantic-ui-react";
 
 type FlexDirectionWrapper = "row" | "column";
 
@@ -15,6 +14,8 @@ interface IStyles {
   };
   noLanesMessage: any;
   createSwimlaneButtonContainer: any;
+  topMenuContainer: any;
+  grid: any;
 }
 
 const styles: IStyles = {
@@ -35,25 +36,43 @@ const styles: IStyles = {
   },
   createSwimlaneButtonContainer: {
     marginTop: "2rem"
+  },
+  topMenuContainer: {
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    height: "4rem",
+    padding: "1rem"
+  },
+  grid: {
+    display: "flex",
+    overflowX: "scroll",
+    width: "100%"
   }
 };
 
 export interface Props {
   children: ReactNode;
   numSwimlanes: number;
-  onSwimlaneCreate: (title: string) => void;
+  onCreateSwimlaneClicked: () => void;
 }
 
 export default function KanbanBoard({
   children,
   numSwimlanes,
-  onSwimlaneCreate
+  onCreateSwimlaneClicked
 }: Props) {
   return (
     <div>
       <Card style={styles.board}>
         {numSwimlanes > 0 ? (
-          <Grid columns={numSwimlanes as 1 | 2 | 3 | 5 | 6}>{children}</Grid>
+          <>
+            <div style={styles.topMenuContainer}>
+              <Button onClick={onCreateSwimlaneClicked}>Create Swimlane</Button>
+            </div>
+
+            <div style={styles.grid}>{children}</div>
+          </>
         ) : (
           <div style={styles.noLanesContainer}>
             <div style={styles.noLanesMessage}>
@@ -65,9 +84,7 @@ export default function KanbanBoard({
               </div>
             </div>
             <div style={styles.createSwimlaneButtonContainer}>
-              <Button onClick={() => onSwimlaneCreate("new swimlane")}>
-                Create Swimlane
-              </Button>
+              <Button onClick={onCreateSwimlaneClicked}>Create Swimlane</Button>
             </div>
           </div>
         )}

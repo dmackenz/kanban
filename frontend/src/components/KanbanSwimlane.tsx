@@ -1,6 +1,5 @@
 import React, { ReactNode } from "react";
-import { Grid, Button, Icon, Header } from "semantic-ui-react";
-import KanbanItem from "./KanbanItem";
+import { Button, Icon, Header } from "semantic-ui-react";
 import { ISwimLane } from "../types";
 
 const styles = {
@@ -10,53 +9,53 @@ const styles = {
     justifyContent: "space-between",
     alignItems: "center"
   },
-  title: {
-    marginTop: "1.5rem",
-    marginLeft: "0.5rem"
-  },
   lane: {
-    margin: "0.6rem",
     backgroundColor: "#d8d8d8",
-    borderRadius: "0.5rem"
+    borderRadius: "0.5rem",
+    minWidth: "20rem",
+    padding: "1rem",
+    margin: "1rem",
+    alignSelf: "flex-start"
+  },
+  createTaskContainer: {
+    display: "flex",
+    alignItems: "flex-end",
+    justifyContent: "center",
+    height: "4rem"
   }
 };
 
 export interface Props {
   children?: ReactNode;
   swimlane: ISwimLane;
-  createTask: (swimlaneId: string, title: string, description: string) => void;
+  onCreateTaskClick: (swimlaneId: string) => void;
   deleteSwimlane: (swimlaneId: string) => void;
 }
 
 export default function KanbanSwimlane({
   children,
   swimlane,
-  createTask,
+  onCreateTaskClick,
   deleteSwimlane
 }: Props) {
   return (
-    <Grid.Column>
-      <Grid columns={1}>
-        <Grid.Column>
-          <div style={styles.lane}>
-            <Grid.Row style={styles.topBar}>
-              <Header as="h4" style={styles.title}>
-                {swimlane.title}
-              </Header>
-              <Icon
-                name="close"
-                onClick={() => deleteSwimlane(swimlane.id)}
-              ></Icon>
-            </Grid.Row>
-            {children && children}
-            <Button
-              onClick={() => createTask(swimlane.id, "task 1", "description")}
-            >
-              Create Task
-            </Button>
-          </div>
-        </Grid.Column>
-      </Grid>
-    </Grid.Column>
+    <div style={styles.lane}>
+      <div style={styles.topBar}>
+        <div>
+          <Header as="h4">{swimlane.title}</Header>
+        </div>
+        <div>
+          <Icon name="close" onClick={() => deleteSwimlane(swimlane.id)}></Icon>
+        </div>
+      </div>
+
+      {children && children}
+
+      <div style={styles.createTaskContainer}>
+        <Button onClick={() => onCreateTaskClick(swimlane.id)}>
+          Create Task
+        </Button>
+      </div>
+    </div>
   );
 }

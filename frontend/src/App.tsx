@@ -8,6 +8,8 @@ import KanbanSwimlane from "./components/KanbanSwimlane";
 import KanbanItem from "./components/KanbanItem";
 import { IBoard } from "./types";
 import { Board, Swimlane, Task } from "./state";
+import CreateSwimlaneDialog from "./components/CreateSwimlaneDialog";
+import CreateTaskDialog from "./components/CreateTaskDialog";
 
 const styles = {
   page: {
@@ -20,10 +22,15 @@ const styles = {
 
 function App() {
   const [boards, setBoards] = useState<IBoard[]>([
-    new Board("1", "first board"),
+    new Board("1", "first board", true, [
+      new Swimlane("342242", "auto created")
+    ]),
     new Board("2", "second board")
   ]);
   const [isCreatingBoard, setIsCreatingBoard] = useState<boolean>(false);
+  const [isCreatingSwimlane, setIsCreatingSwimlane] = useState<boolean>(false);
+  const [activeSwimlaneId, setActiveSwimlaneId] = useState<string>("");
+  const [isCreatingTask, setIsCreatingTask] = useState<boolean>(false);
 
   function activateBoard(id: string): void {
     setBoards(
@@ -63,11 +70,17 @@ function App() {
   }
 
   function createBoard(title: string): void {
-    setBoards([...boards, new Board(Math.random().toString(), title)]);
+    const id = Math.random().toString();
+    setBoards([...boards, new Board(id, title)]);
   }
 
   function getActiveBoard(): IBoard {
     return boards.filter(board => board.active === true)[0];
+  }
+
+  function onCreateTaskClick(swimlaneId: string): void {
+    setIsCreatingTask(true);
+    setActiveSwimlaneId(swimlaneId);
   }
 
   let activeBoard = getActiveBoard();
@@ -84,17 +97,16 @@ function App() {
           boards={boards}
           onSelect={activateBoard}
           onCreateKanbanClicked={() => setIsCreatingBoard(true)}
-          // on create swimlane
         />
         <KanbanBoard
           numSwimlanes={activeBoard.swimlanes.length}
-          onSwimlaneCreate={createSwimlane}
+          onCreateSwimlaneClicked={() => setIsCreatingSwimlane(true)}
         >
           {activeBoard.swimlanes.length > 0 &&
             activeBoard.swimlanes.map(swimlane => (
               <KanbanSwimlane
                 swimlane={swimlane}
-                createTask={createTask}
+                onCreateTaskClick={onCreateTaskClick}
                 deleteSwimlane={deleteSwimlane}
               >
                 {swimlane.tasks.map(task => (
@@ -109,6 +121,23 @@ function App() {
           onCreate={(kanbanTitle: string) => {
             createBoard(kanbanTitle);
             setIsCreatingBoard(false);
+          }}
+        />
+        <CreateSwimlaneDialog
+          onClose={() => setIsCreatingSwimlane(false)}
+          isOpen={isCreatingSwimlane}
+          onCreate={(swimlaneTitle: string) => {
+            createSwimlane(swimlaneTitle);
+            setIsCreatingSwimlane(false);
+          }}
+        />
+        <CreateTaskDialog
+          onClose={() => setIsCreatingTask(false)}
+          isOpen={isCreatingTask}
+          onCreate={(taskTitle: string, taskDescription: string) => {
+            createTask(activeSwimlaneId, taskTitle, taskDescription);
+            setIsCreatingTask(false);
+            setActiveSwimlaneId("");
           }}
         />
       </Container>

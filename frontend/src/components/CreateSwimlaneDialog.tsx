@@ -4,11 +4,11 @@ import Dialog from "./Dialog";
 
 export interface Props {
   onClose: () => void;
-  onCreate: (kanbanTitle: string) => void;
+  onCreate: (swimlaneTitle: string) => void;
   isOpen: boolean;
 }
 
-export default function CreateKanbanDialog({
+export default function CreateSwimlaneDialog({
   isOpen,
   onClose,
   onCreate
@@ -18,7 +18,7 @@ export default function CreateKanbanDialog({
 
   return (
     <Dialog
-      title="Create New Kanban Board"
+      title="Create New Swimlane"
       isOpen={isOpen}
       onClose={onClose}
       onAction={() => {
@@ -31,7 +31,7 @@ export default function CreateKanbanDialog({
     >
       <Input
         inverted
-        placeholder="Kanban board name"
+        placeholder="Swimlane name"
         error={error}
         onChange={e => {
           setValue(e.target.value);

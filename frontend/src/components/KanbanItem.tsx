@@ -1,13 +1,10 @@
-import React, { Component } from "react";
-import { Card, Grid } from "semantic-ui-react";
+import React from "react";
+import { Card } from "semantic-ui-react";
 import { ITask } from "../types";
 
 const styles = {
-  item: {
-    padding: "0.5rem"
-  },
   card: {
-    width: "100%"
+    padding: "0.5rem"
   }
 };
 
@@ -17,12 +14,13 @@ export interface Props {
 
 export default function KanbanItem({ task }: Props) {
   return (
-    <Grid.Row style={styles.item}>
-      <Card
-        header={task.title}
-        description={task.description}
-        style={styles.card}
-      />
-    </Grid.Row>
+    <Card
+      header={task.title}
+      description={task.description}
+      style={styles.card}
+      raised
+      centered
+      fluid
+    />
   );
 }
