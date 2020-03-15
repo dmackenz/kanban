@@ -6,9 +6,11 @@ import KanbanBoard from "./components/kanban/KanbanBoard";
 import CreateKanbanDialog from "./components/dialogs/CreateKanbanDialog";
 import KanbanSwimlane from "./components/kanban/KanbanSwimlane";
 import KanbanItem from "./components/kanban/KanbanItem";
-import { IBoard, Board, Swimlane, Task } from "./types";
+import { IBoard } from "./types";
 import CreateSwimlaneDialog from "./components/dialogs/CreateSwimlaneDialog";
 import CreateTaskDialog from "./components/dialogs/CreateTaskDialog";
+import { KanbanAPI } from "./api";
+import { client } from "./index";
 
 const styles = {
   page: {
@@ -20,57 +22,63 @@ const styles = {
 };
 
 function App() {
-  const [boards, setBoards] = useState<IBoard[]>([
-    new Board("1", "first board", true, [
-      new Swimlane("342242", "auto created")
-    ]),
-    new Board("2", "second board")
-  ]);
+  const [boards, setBoards] = useState<IBoard[]>([]);
   const [isCreatingBoard, setIsCreatingBoard] = useState<boolean>(false);
   const [isCreatingSwimlane, setIsCreatingSwimlane] = useState<boolean>(false);
   const [activeSwimlaneId, setActiveSwimlaneId] = useState<string>("");
   const [isCreatingTask, setIsCreatingTask] = useState<boolean>(false);
 
-  function activateBoard(id: string): void {
-    setBoards(
-      boards.map(board => {
-        if (board.active === true) {
-          board.active = false;
-        }
-        if (board.id === id) {
-          board.active = true;
-        }
-        return board;
-      })
-    );
+  async function createBoard(title: string) {
+    const board = await KanbanAPI.createBoard(client, title);
+    setBoards([...boards, board]);
   }
 
-  function createSwimlane(title: string) {
+  async function createSwimlane(title: string) {
     const board = getActiveBoard();
-    board.swimlanes.push(new Swimlane(Math.random().toString(), title));
+    board.swimlanes.push(
+      await KanbanAPI.createSwimlane(client, board.id, title)
+    );
     setBoards([...boards]);
   }
 
-  function deleteSwimlane(swimlaneId: string) {
+  async function deleteSwimlane(swimlaneId: string) {
     const board = getActiveBoard();
     board.swimlanes = board.swimlanes.filter(
       swimlane => swimlane.id !== swimlaneId
     );
+    await KanbanAPI.deleteSwimlane(client, swimlaneId);
     setBoards([...boards]);
   }
 
-  function createTask(swimlaneId: string, title: string, description: string) {
+  async function createTask(
+    swimlaneId: string,
+    title: string,
+    description: string
+  ) {
     const board = getActiveBoard();
     const swimlane = board.swimlanes.filter(
       swimlane => swimlane.id === swimlaneId
     )[0];
-    swimlane.tasks.push(new Task(Math.random().toString(), title, description));
+
+    swimlane.tasks.push(
+      await KanbanAPI.createTask(client, title, description, swimlane.id)
+    );
     setBoards([...boards]);
   }
 
-  function createBoard(title: string): void {
-    const id = Math.random().toString();
-    setBoards([...boards, new Board(id, title)]);
+  async function activateBoard(id: string) {
+    const newBoards = boards.map(async board => {
+      if (board.active === true) {
+        board.active = false;
+      }
+      if (board.id === id) {
+        board = await KanbanAPI.getBoard(client, board.id);
+        board.active = true;
+      }
+      return board;
+    });
+
+    setBoards(await Promise.all(newBoards));
   }
 
   function getActiveBoard(): IBoard {
@@ -80,6 +88,12 @@ function App() {
   function onCreateTaskClick(swimlaneId: string): void {
     setIsCreatingTask(true);
     setActiveSwimlaneId(swimlaneId);
+  }
+
+  if (boards.length === 0) {
+    (async () => {
+      setBoards(await KanbanAPI.getBoards(client));
+    })();
   }
 
   let activeBoard = getActiveBoard();
@@ -98,10 +112,10 @@ function App() {
           onCreateKanbanClicked={() => setIsCreatingBoard(true)}
         />
         <KanbanBoard
-          numSwimlanes={activeBoard.swimlanes.length}
+          numSwimlanes={activeBoard ? activeBoard.swimlanes.length : 0}
           onCreateSwimlaneClicked={() => setIsCreatingSwimlane(true)}
         >
-          {activeBoard.swimlanes.length > 0
+          {activeBoard && activeBoard.swimlanes.length > 0
             ? activeBoard.swimlanes.map(swimlane => (
                 <KanbanSwimlane
                   key={swimlane.id}

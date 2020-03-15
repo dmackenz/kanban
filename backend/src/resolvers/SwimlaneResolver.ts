@@ -13,8 +13,10 @@ import {
   DeleteSwimlaneInput
 } from "../inputs/SwimlaneInput";
 import { SwimlaneController } from "../controllers/SwimlaneController";
+import { Task } from "../entity/Task";
+import { TaskController } from "../controllers/TaskController";
 
-@Resolver()
+@Resolver(of => Swimlane)
 export class SwimlaneResolver {
   @Query(() => [Swimlane])
   async swimlanes() {
@@ -48,8 +50,8 @@ export class SwimlaneResolver {
     return true;
   }
 
-  // @FieldResolver(returns => [Task])
-  // async tasks(@Root() swimlane: Swimlane) {
-  //   return await TaskController.getTasks(swimlane);
-  // }
+  @FieldResolver(returns => [Task])
+  async tasks(@Root() swimlane: Swimlane) {
+    return await TaskController.getTasks(swimlane);
+  }
 }

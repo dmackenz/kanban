@@ -11,7 +11,12 @@ import { TaskResolver } from "./resolvers/TaskResolver";
   const schema = await buildSchema({
     resolvers: [BoardResolver, SwimlaneResolver, TaskResolver]
   });
-  const server = new ApolloServer({ schema });
+  const server = new ApolloServer({
+    schema,
+    engine: {
+      debugPrintReports: true
+    }
+  });
   const port = 4000;
   await server.listen(port);
   console.log(`Server has started on port ${port}!`);
