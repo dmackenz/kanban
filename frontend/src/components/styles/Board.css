@@ -1,0 +1,38 @@
+.board {
+  width: 100%;
+  margin-top: 0.5rem;
+  border-radius: 0.3rem;
+  background-color: white;
+  box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15);
+}
+
+.no-lanes-container {
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-lanes-message {
+  display: flex;
+  align-items: center;
+}
+
+.create-swimlane-button-container {
+  margin-top: 2rem;
+}
+
+.top-menu-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 4rem;
+  padding: 1rem;
+}
+
+.grid {
+  display: flex;
+  overflow-x: scroll;
+  width: 100%;
+}

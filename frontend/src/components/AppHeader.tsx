@@ -1,16 +1,10 @@
 import React from "react";
 import { Header, Icon } from "semantic-ui-react";
-
-const style = {
-  header: {
-    marginBottom: "1rem"
-  }
-};
-
+import "./styles/Header.css";
 export default function AppHeader() {
   return (
     <div>
-      <Header style={style.header} as="h2">
+      <Header className="header" as="h2">
         <Icon name="compass outline" />
         <Header.Content>Kanban</Header.Content>
       </Header>

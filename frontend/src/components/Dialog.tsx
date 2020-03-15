@@ -1,11 +1,6 @@
 import React, { ReactNode } from "react";
 import { Modal, Header, Button } from "semantic-ui-react";
-
-const styles = {
-  centered: {
-    textAlign: "center"
-  }
-};
+import "./styles/Dialog.css";
 
 export interface Props {
   title: string;
@@ -25,8 +20,10 @@ export default function Dialog({
   return (
     <Modal open={isOpen} onClose={onClose} closeIcon="close" basic size="tiny">
       <Header icon="browser" content={title} />
-      <Modal.Content style={styles.centered}>{children}</Modal.Content>
-      <Modal.Actions style={styles.centered}>
+      <Modal.Content>
+        <div className="base-container">{children}</div>
+      </Modal.Content>
+      <Modal.Actions className="base-container">
         <Button color="green" onClick={onAction} inverted>
           Create
         </Button>

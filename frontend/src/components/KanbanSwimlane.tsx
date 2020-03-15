@@ -1,29 +1,7 @@
 import React, { ReactNode } from "react";
 import { Button, Icon, Header } from "semantic-ui-react";
 import { ISwimLane } from "../types";
-
-const styles = {
-  topBar: {
-    display: "flex",
-    height: "2rem",
-    justifyContent: "space-between",
-    alignItems: "center"
-  },
-  lane: {
-    backgroundColor: "#d8d8d8",
-    borderRadius: "0.5rem",
-    minWidth: "20rem",
-    padding: "1rem",
-    margin: "1rem",
-    alignSelf: "flex-start"
-  },
-  createTaskContainer: {
-    display: "flex",
-    alignItems: "flex-end",
-    justifyContent: "center",
-    height: "4rem"
-  }
-};
+import "./styles/Swimlane.css";
 
 export interface Props {
   children?: ReactNode;
@@ -39,8 +17,8 @@ export default function KanbanSwimlane({
   deleteSwimlane
 }: Props) {
   return (
-    <div style={styles.lane}>
-      <div style={styles.topBar}>
+    <div className="lane">
+      <div className="top-bar">
         <div>
           <Header as="h4">{swimlane.title}</Header>
         </div>
@@ -51,7 +29,7 @@ export default function KanbanSwimlane({
 
       {children && children}
 
-      <div style={styles.createTaskContainer}>
+      <div className="create-task-container">
         <Button onClick={() => onCreateTaskClick(swimlane.id)}>
           Create Task
         </Button>

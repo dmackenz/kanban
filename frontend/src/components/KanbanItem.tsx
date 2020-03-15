@@ -1,12 +1,7 @@
 import React from "react";
 import { Card } from "semantic-ui-react";
 import { ITask } from "../types";
-
-const styles = {
-  card: {
-    padding: "0.5rem"
-  }
-};
+import "./styles/Task.css";
 
 export interface Props {
   task: ITask;
@@ -17,7 +12,7 @@ export default function KanbanItem({ task }: Props) {
     <Card
       header={task.title}
       description={task.description}
-      style={styles.card}
+      className="task"
       raised
       centered
       fluid

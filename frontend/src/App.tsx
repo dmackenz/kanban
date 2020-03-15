@@ -6,8 +6,7 @@ import KanbanBoard from "./components/KanbanBoard";
 import CreateKanbanDialog from "./components/CreateKanbanDialog";
 import KanbanSwimlane from "./components/KanbanSwimlane";
 import KanbanItem from "./components/KanbanItem";
-import { IBoard } from "./types";
-import { Board, Swimlane, Task } from "./state";
+import { IBoard, Board, Swimlane, Task } from "./types";
 import CreateSwimlaneDialog from "./components/CreateSwimlaneDialog";
 import CreateTaskDialog from "./components/CreateTaskDialog";
 
@@ -102,18 +101,20 @@ function App() {
           numSwimlanes={activeBoard.swimlanes.length}
           onCreateSwimlaneClicked={() => setIsCreatingSwimlane(true)}
         >
-          {activeBoard.swimlanes.length > 0 &&
-            activeBoard.swimlanes.map(swimlane => (
-              <KanbanSwimlane
-                swimlane={swimlane}
-                onCreateTaskClick={onCreateTaskClick}
-                deleteSwimlane={deleteSwimlane}
-              >
-                {swimlane.tasks.map(task => (
-                  <KanbanItem task={task} />
-                ))}
-              </KanbanSwimlane>
-            ))}
+          {activeBoard.swimlanes.length > 0
+            ? activeBoard.swimlanes.map(swimlane => (
+                <KanbanSwimlane
+                  key={swimlane.id}
+                  swimlane={swimlane}
+                  onCreateTaskClick={onCreateTaskClick}
+                  deleteSwimlane={deleteSwimlane}
+                >
+                  {swimlane.tasks.map(task => (
+                    <KanbanItem key={task.id} task={task} />
+                  ))}
+                </KanbanSwimlane>
+              ))
+            : undefined}
         </KanbanBoard>
         <CreateKanbanDialog
           onClose={() => setIsCreatingBoard(false)}

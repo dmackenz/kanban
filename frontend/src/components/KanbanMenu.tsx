@@ -13,7 +13,6 @@ export default function KanbanMenu({
   onSelect,
   onCreateKanbanClicked
 }: Props) {
-  console.log(boards, "from kanban menu");
   return (
     <div>
       <Menu pointing>
@@ -23,7 +22,7 @@ export default function KanbanMenu({
             active={board.active === true}
             onClick={() => onSelect(board.id)}
           >
-            {board.title} {board.active}
+            <span>{board.title}</span>
           </Menu.Item>
         ))}
 

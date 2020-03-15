@@ -1,0 +1,21 @@
+.input-border {
+  border: solid white 1px;
+  border-radius: 0.2rem;
+  padding: 1rem;
+}
+
+.input-padded {
+  margin: 0.5rem;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.base-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

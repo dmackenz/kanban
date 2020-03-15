@@ -1,30 +1,7 @@
 import React, { useState } from "react";
 import { Input } from "semantic-ui-react";
 import Dialog from "./Dialog";
-
-interface IStyles {
-  centered: any;
-  container: {
-    display: string;
-    justifyContent: string;
-    flexDirection: "column";
-  };
-  inputContainer: any;
-}
-
-const styles: IStyles = {
-  centered: {
-    textAlign: "center"
-  },
-  container: {
-    display: "flex",
-    justifyContent: "center",
-    flexDirection: "column"
-  },
-  inputContainer: {
-    padding: "1rem"
-  }
-};
+import "./styles/Dialog.css";
 
 export interface Props {
   onClose: () => void;
@@ -56,8 +33,8 @@ export default function CreateTaskDialog({ isOpen, onClose, onCreate }: Props) {
         }
       }}
     >
-      <div style={styles.container}>
-        <div style={styles.inputContainer}>
+      <div className="container">
+        <div className="input-border input-padded">
           <Input
             transparent
             inverted
@@ -71,7 +48,7 @@ export default function CreateTaskDialog({ isOpen, onClose, onCreate }: Props) {
             }}
           />
         </div>
-        <div style={styles.inputContainer}>
+        <div className="input-border input-padded">
           <Input
             transparent
             inverted
