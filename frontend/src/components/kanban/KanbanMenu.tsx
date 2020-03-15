@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu, Button } from "semantic-ui-react";
-import { IBoard } from "../types";
+import { IBoard } from "../../types";
 
 export interface Props {
   boards: IBoard[];

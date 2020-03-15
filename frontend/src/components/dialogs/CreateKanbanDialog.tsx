@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Input } from "semantic-ui-react";
 import Dialog from "./Dialog";
-import "./styles/Dialog.css";
+import "../styles/Dialog.css";
 
 export interface Props {
   onClose: () => void;
-  onCreate: (swimlaneTitle: string) => void;
+  onCreate: (kanbanTitle: string) => void;
   isOpen: boolean;
 }
 
-export default function CreateSwimlaneDialog({
+export default function CreateKanbanDialog({
   isOpen,
   onClose,
   onCreate
@@ -19,7 +19,7 @@ export default function CreateSwimlaneDialog({
 
   return (
     <Dialog
-      title="Create New Swimlane"
+      title="Create New Kanban Board"
       isOpen={isOpen}
       onClose={onClose}
       onAction={() => {
@@ -34,7 +34,7 @@ export default function CreateSwimlaneDialog({
         <Input
           inverted
           transparent
-          placeholder="Swimlane name"
+          placeholder="Kanban board name"
           error={error}
           onChange={e => {
             setValue(e.target.value);

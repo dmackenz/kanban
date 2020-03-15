@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { Modal, Header, Button } from "semantic-ui-react";
-import "./styles/Dialog.css";
+import "../styles/Dialog.css";
 
 export interface Props {
   title: string;

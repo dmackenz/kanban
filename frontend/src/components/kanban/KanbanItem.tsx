@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from "semantic-ui-react";
-import { ITask } from "../types";
-import "./styles/Task.css";
+import { ITask } from "../../types";
+import "../styles/Task.css";
 
 export interface Props {
   task: ITask;

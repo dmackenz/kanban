@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Input } from "semantic-ui-react";
 import Dialog from "./Dialog";
-import "./styles/Dialog.css";
+import "../styles/Dialog.css";
 
 export interface Props {
   onClose: () => void;

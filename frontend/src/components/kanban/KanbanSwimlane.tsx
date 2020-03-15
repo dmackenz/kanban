@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { Button, Icon, Header } from "semantic-ui-react";
-import { ISwimLane } from "../types";
-import "./styles/Swimlane.css";
+import { ISwimLane } from "../../types";
+import "../styles/Swimlane.css";
 
 export interface Props {
   children?: ReactNode;

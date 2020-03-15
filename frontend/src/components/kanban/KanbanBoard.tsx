@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { Icon, Header, Button } from "semantic-ui-react";
-import "./styles/Board.css";
+import "../styles/Board.css";
 
 export interface Props {
   children: ReactNode;

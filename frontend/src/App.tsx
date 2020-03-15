@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Container } from "semantic-ui-react";
 import AppHeader from "./components/AppHeader";
-import KanbanMenu from "./components/KanbanMenu";
-import KanbanBoard from "./components/KanbanBoard";
-import CreateKanbanDialog from "./components/CreateKanbanDialog";
-import KanbanSwimlane from "./components/KanbanSwimlane";
-import KanbanItem from "./components/KanbanItem";
+import KanbanMenu from "./components/kanban/KanbanMenu";
+import KanbanBoard from "./components/kanban/KanbanBoard";
+import CreateKanbanDialog from "./components/dialogs/CreateKanbanDialog";
+import KanbanSwimlane from "./components/kanban/KanbanSwimlane";
+import KanbanItem from "./components/kanban/KanbanItem";
 import { IBoard, Board, Swimlane, Task } from "./types";
-import CreateSwimlaneDialog from "./components/CreateSwimlaneDialog";
-import CreateTaskDialog from "./components/CreateTaskDialog";
+import CreateSwimlaneDialog from "./components/dialogs/CreateSwimlaneDialog";
+import CreateTaskDialog from "./components/dialogs/CreateTaskDialog";
 
 const styles = {
   page: {
