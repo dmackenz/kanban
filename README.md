@@ -13,14 +13,16 @@ Still a work in progress.
 
 Terminal 1
 ```
-cd frontend
-npm i 
-npm start
+$ cd backend
+$ npm i
+$ npm start
 ```
 
 Terminal 2
 ```
-cd backend
-npm i
-npm start
+$ cd frontend
+$ npm i 
+$ npm start
 ```
+
+Open localhost:3000 in a browser.
