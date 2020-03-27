@@ -9,7 +9,7 @@ graphql based kanban board. Created this to get more familiar with the following
 
 Still a work in progress.
 
-To run:
+### Usage:
 
 Terminal 1
 ```
