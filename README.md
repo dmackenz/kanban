@@ -25,4 +25,5 @@ $ npm i
 $ npm start
 ```
 
-Open localhost:3000 in a browser.
+- Open localhost:3000 in a browser to see UI.
+- Open localhost:4000 in a browser to see GraphQL Playground.
